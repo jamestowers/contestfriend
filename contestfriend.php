@@ -3,9 +3,9 @@
 Plugin Name: contestfriend for WordPress
 Plugin URI: http://www.contestfriend.com
 Description: Create your own contests and sweepstakes in seconds with customizable designs and multitude of features ranging from referrals, automatic random winner pick to integration with your favorite mailing list service like Mailchimp, AWeber, CampaignMonitor and GetResponse.
-Version: 0.1.0.1
+Version: 1.0
 Author: Nick Berry
-Author URI: http://www.contestfriend.com
+Author URI: http://www.contestfriend.com/plugin/
 License: GPLv2+
 */
 
