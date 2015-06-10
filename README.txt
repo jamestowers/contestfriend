@@ -40,19 +40,18 @@ ContestFriend for WordPress is the easiest way to run viral sweepstakes, contest
 2. Media Options
 3. Design Customization
 4. Widget settings
-5. Entries & Winners
-6. Timing
-7. Shortcode
-8. Live Preview Before Submit
-9. Live Preview After Submit
-10. Dashboard
-11. Participants
-12. Contests Listing
+5. Contests Listing
 
 
 == Frequently Asked Questions ==
 
-Visit contestfriend.com/faq for all faq's
+Is there any cost?
+None. 
+
+Do you require any sign up?
+No.
+
+
 
 
 == changelog ==
