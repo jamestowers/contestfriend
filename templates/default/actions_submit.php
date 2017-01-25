@@ -28,6 +28,8 @@ if($contest->cf_referral_field=='1')
          
     echo '<h2>'.__('Fingers crossed!', 'contestfriend').'</div><div class="social_message">'.
 sprintf(_n('<p>Thanks for entering our competition. If you’re lucky enough to be a winner, we’ll let you know before February 5th.</p> <p>Increase your chances of winning by sharing the competition with friends and we’ll automatically re-enter you up to five times. </p>', '<p>Thanks for entering our competition. If you’re lucky enough to be a winner, we’ll let you know before February 5th.</p><p> Increase your chances of winning by sharing the competition with friends and we’ll automatically re-enter you up to five times. </p>', $contest->cf_referral_entries), $contest->cf_referral_entries).'</div>';
+
+    echo '<script>fbq(\'track\', \'CompleteRegistration\');</script>';
 }
 
 echo '<div class="share-boxes">';
