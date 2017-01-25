@@ -79,6 +79,7 @@ class cf_Table_Participants extends WP_List_Table
             'first_name' => __('First name', 'contestfriend'),
             'last_name' => __('Last name', 'contestfriend'),
             'entries' => __('Entries', 'contestfriend'),
+            'categories' => __('Chosen Categories', 'contestfriend'),
             'referrals' => __('Referrals', 'contestfriend'),
             'winner' => __('Status', 'contestfriend'),
             'ip' => __('IP Address', 'contestfriend'),
@@ -107,7 +108,7 @@ class cf_Table_Participants extends WP_List_Table
         $items = cf_Participant::get_all($contest_id, $orderby, $order);
         
         $csv_output = chr(239) . chr(187) . chr(191); //utf8
-        $csv_output .= '"'.__('Email', 'contestfriend').'","'.__('First name', 'contestfriend').'","'.__('Last name', 'contestfriend').'","'.__('Entries', 'contestfriend').'","'.__('Referrals', 'contestfriend').'","'.__('Status', 'contestfriend').'","'.__('IP').'","'.__('Contest ID', 'contestfriend').'"';
+        $csv_output .= '"'.__('Email', 'contestfriend').'","'.__('First name', 'contestfriend').'","'.__('Last name', 'contestfriend').'","'.__('Entries', 'contestfriend').'","'.__('Categories', 'contestfriend').'","'.__('Referrals', 'contestfriend').'","'.__('Status', 'contestfriend').'","'.__('IP').'","'.__('Contest ID', 'contestfriend').'"';
 
         $csv_output .= "\n";
                
@@ -122,6 +123,12 @@ class cf_Table_Participants extends WP_List_Table
                 $entry_val = 1;
                 $referral_val = $contest->cf_referral_entries;
                 $entries = $entry_val + count($item->referral_to)*intval($referral_val);
+                $categories = '';
+
+                foreach($item->chosen_prize_cats as $cat){
+                    $term = get_term( $cat, 'contest_category');
+                    $categories .=  $term->name . ', ';
+                }
                 
                 $referrals = $item->referral_to;
                 if(empty($referrals))
@@ -132,7 +139,7 @@ class cf_Table_Participants extends WP_List_Table
                     $referrals = count($referrals);
             }
             
-            $csv_output .= '"'.$item->email.'","'.$item->first_name.'","'.$item->last_name.'","'.$entries.'","'.$referrals.'","'.$item->status.'","'.$item->ip.'","'.$item->contest_id.'"'."\n";
+            $csv_output .= '"'.$item->email.'","'.$item->first_name.'","'.$item->last_name.'","'.$entries.'","'.$categories.'","'.$referrals.'","'.$item->status.'","'.$item->ip.'","'.$item->contest_id.'"'."\n";
         }
            
         $size = strlen($csv_output);
@@ -287,6 +294,7 @@ class cf_Table_Participants extends WP_List_Table
             'first_name' => array('first_name', false),
             'last_name'  => array('last_name', false),
             'entries' => array('entries', false),
+            'categories' => array('categories', false),
             'referrals' => array('entries', false),
             'winner' => array('status', false),
             'ip' => array('ip', false),
@@ -378,6 +386,15 @@ class cf_Table_Participants extends WP_List_Table
                                 
                 $num_entries = $entry_val + count($referral_to)*intval($referral_val);
                 return $num_entries;
+
+            case 'categories':
+                $categories = '';
+                foreach($item->chosen_prize_cats as $cat){
+                    $term = get_term( $cat, 'contest_category');
+                    $categories .=  $term->name . ', ';
+                }
+                    
+                return $categories;
             
             case 'referrals':
                 $referrals = isset($item->referral_to) ? $item->referral_to : array();

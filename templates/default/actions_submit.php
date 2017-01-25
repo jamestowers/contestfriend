@@ -26,16 +26,27 @@ if($contest->cf_referral_field=='1')
     else
         $ref_url = add_query_arg('ref', $participant->code, $ref_url);
          
-    echo '<div class="social_title">'.__('Earn More Entries!', 'contestfriend').'</div><div class="social_message">'.
-sprintf(_n('Share the lucky link below and earn %d more entry for every friend who enters with your custom link.', 'Share the lucky link below and earn %d more entries for every friend who enters with your custom link.', $contest->cf_referral_entries), $contest->cf_referral_entries).'</div>';
+    echo '<h2>'.__('Fingers crossed!', 'contestfriend').'</div><div class="social_message">'.
+sprintf(_n('<p>Thanks for entering our competition. If you’re lucky enough to be a winner, we’ll let you know before February 5th.</p> <p>Increase your chances of winning by sharing the competition with a friend and we’ll automatically re-enter you</p>', '<p>Thanks for entering our competition. If you’re lucky enough to be a winner, we’ll let you know before February 5th.</p><p> Increase your chances of winning by sharing the competition with up to %d friends and we’ll automatically re-enter you each time!</p>', $contest->cf_referral_entries), $contest->cf_referral_entries).'</div>';
 }
+
+echo '<div class="share-boxes">';
+if($contest->cf_referral_field=='1')
+{   
+    // TOOD move script to footer          
+    echo '<div class="col6 flex-center flex-column" id="referral-code">
+    <input type="text" value="'.$ref_url.'" style="text-align:center" />
+    <div>Copy and share the link above</div>
+    </div>';
+} 
 
 $social = $contest->cf_social;        
 
 if(is_array($social))
 {    
-    echo '<div class="social">';
+    echo '<div class="col6 flex-center flex-column last" id="social">';
 
+    echo '<div>';
     foreach($social as $s)
     {
         // TODO
@@ -46,7 +57,7 @@ if(is_array($social))
             $icon = cf_Manager::$plugin_url.'/img/google-plus.png';
             
             echo <<<HTML
-<a rel="nofollow" href="http://plusone.google.com/" onclick="popUp=window.open('https://plus.google.com/share?url={$googleplus_url}', 'popupwindow', 'scrollbars=yes,width=800,height=400');popUp.focus();return false"><img src="{$icon}" alt="Google+" /></a>
+        <a rel="nofollow" href="http://plusone.google.com/" onclick="popUp=window.open('https://plus.google.com/share?url={$googleplus_url}', 'popupwindow', 'scrollbars=yes,width=800,height=400');popUp.focus();return false"><img src="{$icon}" width="50" alt="Google+" /></a>
 HTML;
         }
         else if($s=='twitter')
@@ -56,7 +67,7 @@ HTML;
             $icon = cf_Manager::$plugin_url.'/img/twitter.png';
             
             echo <<<HTML
-<a rel="nofollow" href="http://twitter.com/" onclick="popUp=window.open('http://twitter.com/home?status={$twitter_text}', 'popupwindow', 'scrollbars=yes,width=800,height=400');popUp.focus();return false"><img src="{$icon}" alt="Twitter"/></a>
+<a rel="nofollow" href="http://twitter.com/" onclick="popUp=window.open('http://twitter.com/home?status={$twitter_text}', 'popupwindow', 'scrollbars=yes,width=800,height=400');popUp.focus();return false"><img src="{$icon}" width="50" alt="Twitter"/></a>
 HTML;
         }
         else if($s=='facebook')
@@ -68,7 +79,7 @@ HTML;
             $icon = cf_Manager::$plugin_url.'/img/facebook.png';
             
             echo <<<HTML
-<a rel="nofollow" href="http://www.facebook.com/" onclick="popUp=window.open('http://www.facebook.com/sharer.php?s=100&p[url]={$facebook_url}&p[images][0]={$facebook_image}&p[title]={$facebook_title}&p[summary]={$facebook_summary}', 'popupwindow', 'scrollbars=yes,width=800,height=400');popUp.focus();return false"><img src="{$icon}" alt="Facebook" /></a>
+<a rel="nofollow" href="http://www.facebook.com/" onclick="popUp=window.open('http://www.facebook.com/sharer.php?s=100&p[url]={$facebook_url}&p[images][0]={$facebook_image}&p[title]={$facebook_title}&p[summary]={$facebook_summary}', 'popupwindow', 'scrollbars=yes,width=800,height=400');popUp.focus();return false"><img src="{$icon}" width="50" alt="Facebook" /></a>
 HTML;
         }
         else if($s=='pinit')
@@ -79,7 +90,7 @@ HTML;
             $icon = cf_Manager::$plugin_url.'/img/pinterest.png';
             
             echo <<<HTML
-<a rel="nofollow" href="http://www.pinterest.com/" onclick="popUp=window.open('http://pinterest.com/pin/create/button/?url={$pinterest_url}&media={$pinterest_image}&description={$pinterest_description}', 'popupwindow', 'scrollbars=yes,width=800,height=400');popUp.focus();return false"><img src="{$icon}" alt="Pinterest" /></a>
+<a rel="nofollow" href="http://www.pinterest.com/" onclick="popUp=window.open('http://pinterest.com/pin/create/button/?url={$pinterest_url}&media={$pinterest_image}&description={$pinterest_description}', 'popupwindow', 'scrollbars=yes,width=800,height=400');popUp.focus();return false"><img src="{$icon}" width="50" alt="Pinterest" /></a>
 HTML;
         }
         else if($s=='linkedin')
@@ -91,28 +102,13 @@ HTML;
             $icon = cf_Manager::$plugin_url.'/img/linkedin.png';
             
             echo <<<HTML
-<a rel="nofollow" href="http://www.linkedin.com/" onclick="popUp=window.open('http://www.linkedin.com/shareArticle?mini=true&url={$linkedin_url}&title={$linkedin_title}&summary={$linkedin_summary}&source={$linkedin_source}', 'popupwindow', 'scrollbars=yes,width=800,height=400');popUp.focus();return false" target=”_new”><img src="{$icon}" alt="LinkedIn"/></a>
+<a rel="nofollow" href="http://www.linkedin.com/" onclick="popUp=window.open('http://www.linkedin.com/shareArticle?mini=true&url={$linkedin_url}&title={$linkedin_title}&summary={$linkedin_summary}&source={$linkedin_source}', 'popupwindow', 'scrollbars=yes,width=800,height=400');popUp.focus();return false" target=”_new”><img src="{$icon}" width="50" alt="LinkedIn"/></a>
 HTML;
         }
     }
-
     echo '</div>';
+    echo '<div>Click to share on social media</div></div>';
 } 
 
-if($contest->cf_referral_field=='1')
-{   
-    // TOOD move script to footer          
-    echo '<div id="d_clip_container-'.$widget_id.'" style="position:relative">
-    <div id="d_clip_button-'.$widget_id.'" class="shareurl"><span>'.__('Click to Copy Your Lucky URL', 'contestfriend').': <span style="color: #cccccc">'.$ref_url.'</span></span></div>
-    </div>
-    
-    <script type="text/javascript">
-    jQuery(document).ready(function() {
-          clip = new ZeroClipboard.Client();
-          ZeroClipboard.setMoviePath("'.cf_Manager::$plugin_url.'/js/ZeroClipboard.swf");
-          clip.setText("'.$ref_url.'");
-          clip.setHandCursor( true );
-          clip.glue( \'d_clip_button-'.$widget_id.'\', \'d_clip_container-'.$widget_id.'\');
-    });
-    </script>';
-}            
+echo '</div><p class="pad">Follow <a href="https://instagram.com/sharestylist" target="_blank">@SHARESTYLIST</a> on social to see if you\'re a winner</p>';
+           

@@ -179,7 +179,7 @@ class cf_Page_Contest
             $_GET['cf_page'] = $first_fname;  
             
         echo '<div class="wrap">
-        <h2>contestfriend</h2>';
+        <h2>Share to win</h2>';
         
         $this->generate_menu();
                 

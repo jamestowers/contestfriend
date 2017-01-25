@@ -351,6 +351,8 @@ class cf_Widget
         $widget_id = esc_attr($_POST['div_id']);
         $url = urldecode($_POST['url']);
         $email = esc_sql($_POST['email']);
+        $prize_cats = $_POST['prize-categories'];
+
         $first_name = '';
         if(!empty($_POST['first_name']))
             $first_name = esc_sql($_POST['first_name']);
@@ -405,6 +407,13 @@ class cf_Widget
             }
         }
 
+        if(empty($prize_cats))
+            {
+                $data['error']['prize-categories'] = 1;
+                $do_process = false;
+            }
+
+
         if($do_process) // if input is ok
         {
             $double_optin = false;
@@ -435,6 +444,8 @@ class cf_Widget
                     $participant->add_meta('first_name', $first_name);
                     $participant->add_meta('last_name', $last_name);
                 }
+
+                $participant->add_meta('chosen_prize_cats', serialize ($prize_cats));
 
                 if($contest->cf_referral_field=='1') // if using referral field generate and store short url for the new participant referral link
                 {

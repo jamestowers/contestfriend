@@ -274,7 +274,6 @@ class cf_Participant
         $data = array();
         foreach($id_data as $id)
             $data[] = new cf_Participant(intval($id['id']));
-        
         return $data;           
     }
     

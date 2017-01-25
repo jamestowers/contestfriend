@@ -235,14 +235,26 @@ if(!class_exists('cf_Manager'))
                 
             register_post_type(self::post_type, $array);
 
+            $cat_array = array(
+                'labels' => array(
+                    'name' => 'Prize categories',
+                    'singular_name' => 'Prize category',
+                ),
+                'show_ui' => true,
+                'show_in_menu' => true,
+                'hierarchical' => true
+                );
+
+            register_taxonomy('contest_category', array(self::post_type, 'post'), $cat_array);
+
             // register i18n domain
             load_plugin_textdomain('contestfriend', false, dirname(plugin_basename(__FILE__)).'/languages/');
             
             // register styles & scripts
             wp_enqueue_script('jquery');
             
-            wp_register_style('cf_css_base', self::$plugin_url.'/css/cf_base.css');
-            wp_enqueue_style('cf_css_base');
+            /*wp_register_style('cf_css_base', self::$plugin_url.'/css/cf_base.css');
+            wp_enqueue_style('cf_css_base');*/
             
             wp_register_style('cf_css_jquery_ui', self::$plugin_url.'/css/jquery-ui-1.9.1.custom.min.css');
             

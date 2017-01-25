@@ -27,8 +27,11 @@ class cf_Page_List
     */
     function __construct()
     {
-        add_menu_page('contestfriend', 'contestfriend', 'manage_options', self::page_id, array(&$this, 'generate'));
-        $this->page_hook = add_submenu_page(self::page_id, __('All Contests', 'contestfriend'), __('All Contests', 'contestfriend'), 'manage_options', self::page_id, array(&$this, 'generate'));   
+        add_menu_page('Share to win', 'Share to win', 'manage_options', self::page_id, array(&$this, 'generate'));
+        $this->page_hook = add_submenu_page(self::page_id, __('All Contests', 'Share to win'), __('All Contests', 'Share to win'), 'manage_options', self::page_id, array(&$this, 'generate'));  
+
+        //add_submenu_page(self::page_id, __('Prize categories', 'Prize categories'), __('Prize categories', 'Prize categories'), 'manage_options', 'prize-categories', array(&$this, 'generate'));   
+        
         add_action('load-'.$this->page_hook, array(&$this, 'init'));
     }
     
@@ -74,7 +77,7 @@ HTML;
     function generate()
     {        
         echo '<div class="wrap">
-<h2>contestfriend <a href="admin.php?page='.cf_Page_Contest::page_id.'" class="add-new-h2">'.__('Add New', 'contestfriend').'</a></h2>';
+<h2>Share to win <a href="admin.php?page='.cf_Page_Contest::page_id.'" class="add-new-h2">'.__('Add New', 'contestfriend').'</a></h2>';
 
         $table_list = new cf_Table_Contests();
         $table_list->prepare_items();

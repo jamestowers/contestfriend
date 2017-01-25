@@ -2,7 +2,7 @@ pad = function (number, length) {
     return (number+"").length >= length ? number + "" : pad("0" + number, length);
 }
 
-cf_ctdn = function (timeDiff, contest_id) 
+/*cf_ctdn = function (timeDiff, contest_id) 
 {
     timeDiff = parseInt(timeDiff);
     
@@ -38,11 +38,11 @@ cf_ctdn = function (timeDiff, contest_id)
     jQuery('#'+contest_id+' .cf_countdown_seconds').html(pad(seconds,2)+"s ");
 
     var timer = setTimeout(function() { cf_ctdn(timeDiff-1, contest_id)},1000);
-}
+}*/
 
 jQuery(document).ready(function() {
         
-    jQuery('.cf_rules_disclaimer_link').live('click', function(evt) {
+    jQuery('.cf_rules_disclaimer_link').on('click', function(evt) {
         evt.preventDefault();
         var id = jQuery(this).attr('id');
         id = id.replace('_link', '');
@@ -50,19 +50,19 @@ jQuery(document).ready(function() {
         return false;
     });
     
-    jQuery('.dialog_close').live('click', function(evt) {
+    jQuery('.dialog_close').on('click', function(evt) {
         evt.preventDefault();
         var id = jQuery(this).parent().parent().attr('id');
         jQuery('#'+id).fadeOut();
         return false;    
     });
     
-    jQuery('.cf_rules_disclaimer_wrap').live('click', function(evt) {
+    jQuery('.cf_rules_disclaimer_wrap').on('click', function(evt) {
        evt.preventDefault();
        jQuery(this).fadeOut(); 
     });
     
-    jQuery('.cf_rules_disclaimer_dialog').live('click', function(evt) {
+    jQuery('.cf_rules_disclaimer_dialog').on('click', function(evt) {
        return false; 
     });
     
@@ -71,9 +71,22 @@ jQuery(document).ready(function() {
 
         jQuery('#'+widget_div+' form').submit(function(evt) {
            evt.preventDefault();
-           
+            
            if(jQuery('#'+widget_div+' .cf_submit_div').hasClass('cf_loading'))
                return false;
+
+          var terms = '#'+widget_div+' input#accept-terms';
+          var cf_terms = jQuery(terms);
+
+          if(cf_terms.prop('checked') != true){
+            cf_terms.parents('.checkbox').addClass('shaking error')
+            return false
+          }
+
+          var selectedPrizeCats = [];
+          $('#'+widget_div+' input[type=checkbox]:checked').each(function() {
+              selectedPrizeCats.push($(this).val());
+          });
 
            var first_name_sel = '#'+widget_div+' input.first_name';
            var last_name_sel = '#'+widget_div+' input.last_name';
@@ -146,6 +159,7 @@ jQuery(document).ready(function() {
                'email': cf_email,
                'first_name': cf_first_name,
                'last_name': cf_last_name,
+               'prize-categories': selectedPrizeCats,
                'contest_id': cf_contest_id,
                'div_id': widget_div,
                'cf_ref': cf_ref,

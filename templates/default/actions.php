@@ -41,4 +41,26 @@ $email_css = 'cf_email';
 if(!empty($widget_errors['email']))
     $email_css .= ' error_req';
     
-echo '<div><input type="text" class="'.$email_css.'" name="email" placeholder="email@address.com" /></div><div class="cf_submit_div"><input type="submit" class="cf_submit" value="'.esc_attr($contest->cf_submit_text).'" /></div></form>';
+echo '<div><input type="text" class="'.$email_css.'" name="email" placeholder="email@address.com" /></div>';
+
+$terms = get_terms( array(
+    'taxonomy' => 'contest_category',
+    'hide_empty' => false,
+) );
+
+echo '<div class="checkbox-group text-center">';
+foreach($terms as $term){
+    echo '<div class="checkbox">';
+    echo '<input id="prize-cat-' . $term->term_id . '" type="checkbox" name="prize-categories[]" value="' . $term->term_id . '" /> <label for="prize-cat-' . $term->term_id . '">' . $term->name . '</label>';
+    echo '</div>';
+}
+echo '</div>';
+
+if(!empty($widget_errors['prize-categories']))
+    echo '<span class=" error_req cf_clear">Please choose at least one prize category</span>';
+
+echo '<div class="checkbox checkbox-small">';
+    echo '<input id="accept-terms" type="checkbox" name="prize-categories[]" value="i" /> <label for="accept-terms">Tick box to accept <a href="/terms" class="" id="" target="_blank">Ts & Cs</a></label>';
+echo '</div>';
+
+echo '<div class="clear group"><input type="submit" class="cf_submit" value="'.esc_attr($contest->cf_submit_text).'" /></div></form>';
