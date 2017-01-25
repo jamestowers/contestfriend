@@ -27,7 +27,7 @@ if($contest->cf_referral_field=='1')
         $ref_url = add_query_arg('ref', $participant->code, $ref_url);
          
     echo '<h2>'.__('Fingers crossed!', 'contestfriend').'</div><div class="social_message">'.
-sprintf(_n('<p>Thanks for entering our competition. If you’re lucky enough to be a winner, we’ll let you know before February 5th.</p> <p>Increase your chances of winning by sharing the competition with a friend and we’ll automatically re-enter you</p>', '<p>Thanks for entering our competition. If you’re lucky enough to be a winner, we’ll let you know before February 5th.</p><p> Increase your chances of winning by sharing the competition with up to %d friends and we’ll automatically re-enter you each time!</p>', $contest->cf_referral_entries), $contest->cf_referral_entries).'</div>';
+sprintf(_n('<p>Thanks for entering our competition. If you’re lucky enough to be a winner, we’ll let you know before February 5th.</p> <p>Increase your chances of winning by sharing the competition with friends and we’ll automatically re-enter you up to five times. </p>', '<p>Thanks for entering our competition. If you’re lucky enough to be a winner, we’ll let you know before February 5th.</p><p> Increase your chances of winning by sharing the competition with friends and we’ll automatically re-enter you up to five times. </p>', $contest->cf_referral_entries), $contest->cf_referral_entries).'</div>';
 }
 
 echo '<div class="share-boxes">';
@@ -57,7 +57,7 @@ if(is_array($social))
             $icon = cf_Manager::$plugin_url.'/img/google-plus.png';
             
             echo <<<HTML
-        <a rel="nofollow" href="http://plusone.google.com/" onclick="popUp=window.open('https://plus.google.com/share?url={$googleplus_url}', 'popupwindow', 'scrollbars=yes,width=800,height=400');popUp.focus();return false"><img src="{$icon}" width="50" alt="Google+" /></a>
+        <a rel="nofollow" href="http://plusone.google.com/" onclick="popUp=window.open('https://plus.google.com/share?url={$googleplus_url}', 'popupwindow', 'scrollbars=yes,width=800,height=400');popUp.focus();return false"><img src="{$icon}" width="50" alt="Google+" /></a> 
 HTML;
         }
         else if($s=='twitter')
@@ -67,7 +67,7 @@ HTML;
             $icon = cf_Manager::$plugin_url.'/img/twitter.png';
             
             echo <<<HTML
-<a rel="nofollow" href="http://twitter.com/" onclick="popUp=window.open('http://twitter.com/home?status={$twitter_text}', 'popupwindow', 'scrollbars=yes,width=800,height=400');popUp.focus();return false"><img src="{$icon}" width="50" alt="Twitter"/></a>
+<a rel="nofollow" href="http://twitter.com/" onclick="popUp=window.open('http://twitter.com/home?status={$twitter_text}', 'popupwindow', 'scrollbars=yes,width=800,height=400');popUp.focus();return false"><img src="{$icon}" width="50" alt="Twitter"/></a> 
 HTML;
         }
         else if($s=='facebook')
