@@ -185,8 +185,13 @@ jQuery(document).ready(function() {
                if(custom_video)
                    _V_(widget_div+'_video').destroy();
                
+
                // replace widget content
                jQuery('#'+widget_div).replaceWith(response);
+               var pageTitle = 'Thank you';
+               var pageUrl = '/competition/thank-you';
+               document.title = pageTitle;
+               window.history.pushState({"html":response,"pageTitle":pageTitle},"", pageUrl);
                
                // call widget_onresize function to add small / large class
                widget_onresize();
